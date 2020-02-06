@@ -2,6 +2,7 @@ package br.com.kafka.service.publischer;
 
 import br.com.kafka.config.KafkaProperties;
 import br.com.kafka.model.PublisherModel;
+import br.com.kafka.util.UtilLogs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +32,7 @@ public class PublischerService {
     public Callback notificationCallback() {
         return (metadata, exception) -> {
             if (exception == null) {
-                log.info("Topic:     " + metadata.topic() + "\n" +
-                        "Offset:    " + metadata.offset() + "\n" +
-                        "Partition: " + metadata.partition() + "\n" +
-                        "TimeStamp: " + metadata.timestamp());
+                UtilLogs.showLogPublischer(metadata);
             } else {
                 log.error("Eror while producing message", exception);
             }

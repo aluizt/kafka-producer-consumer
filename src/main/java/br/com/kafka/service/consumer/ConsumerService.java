@@ -25,7 +25,7 @@ public class ConsumerService {
     public void subscrible(String topic) {
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties())) {
             consumer.subscribe(Collections.singletonList(topic));
-            consumer.poll(Duration.ofMillis(1000)).forEach(UtilLogs::showLog);
+            consumer.poll(Duration.ofMillis(1000)).forEach(UtilLogs::showLogConsumer);
         } catch (KafkaException e) {
             log.error(e.getMessage());
         }
